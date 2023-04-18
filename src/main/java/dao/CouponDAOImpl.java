@@ -18,6 +18,7 @@ public class CouponDAOImpl implements CouponDAO {
     private static final String GET_SINGLE_COUPON = "SELECT * FROM `coupon-system 159`.coupons WHERE (`id` = ?);";
     private static final String IS_COUPON_EXIST = "select exists (select * FROM `coupon-system 159`.coupons where id = 999 ) as res";
     private static final String INSERT_COUPON_PURCHASE ="INSERT INTO `coupon-system 159`.`customer_vs_coupons` (`customer_id`, `coupon_id`) VALUES (?, ?)";
+    private static final String DELETE_COUPON_PURCHASE = "DELETE FROM `coupon-system 159`.`customer_vs_coupons` WHERE (`customer_id` = ?) and (`coupon_id` = ?)";
 
     @Override
     public void add(Coupon coupon) {
@@ -97,12 +98,18 @@ public class CouponDAOImpl implements CouponDAO {
 
     @Override
     public void addCouponPurchase(int customerId, int couponId) {
-
-
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1,customerId);
+        params.put(2,couponId);
+        DBUtils.runQuery(INSERT_COUPON_PURCHASE, params);
     }
 
     @Override
     public void deleteCouponPurchase(int customerId, int couponId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, customerId);
+        params.put(2, customerId);
+        DBUtils.runQuery(DELETE_COUPON_PURCHASE,params);
 
     }
 }
