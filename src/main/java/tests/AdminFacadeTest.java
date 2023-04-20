@@ -1,6 +1,7 @@
 package tests;
 
 import beans.Company;
+import beans.Customer;
 import facade.AdminFacade;
 import facade.AdminFacadeImpl;
 import facade.ClientFacade;
@@ -13,15 +14,14 @@ public class AdminFacadeTest {
     public void testAsAdmin() throws Exception {
         Test.test("Admin Facade - bad login - wrong email");
         System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "admin"));
-
         Test.test("Admin Facade - bad login - wrong password");
         System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "stam"));
-
         Test.test("Admin Facade - bad login - wrong email and password");
         System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "stam"));
-
         Test.test("Admin Facade - good login -");
         System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "admin"));
+
+
         System.out.println("---------------------------------------------------------------------------------");
 
         Company companyToAdd = null;
@@ -59,7 +59,10 @@ public class AdminFacadeTest {
         companyToAdd = Company.builder().name("new company").email("new.company@info.com").password("1234").build();
         adminFacade.addCompany(companyToAdd);
         adminFacade.getAllCompanies().forEach(System.out::println);
+
+
         System.out.println("---------------------------------------------------------------------------------");
+
         Company toUpdateCompany = null;
         Test.test("Admin Facade - update company - cannot update id that not exist");
         toUpdateCompany = adminFacade.getSingleCompany(1).orElseThrow(() -> new Exception("company not exist"));
@@ -100,6 +103,39 @@ public class AdminFacadeTest {
 
         Test.test("Admin Facade - ge single company - success");
         System.out.println(adminFacade.getSingleCompany(2));
+
+        System.out.println("---------------------------------------------------------------------------------");
+
+
+        Customer customerToAdd = null;
+        Test.test("Admin Facade - add customer - id already exist");
+        customerToAdd = adminFacade.getSingleCustomer(1).orElseThrow(() -> new Exception(("customer not exist")));
+        customerToAdd.setFirstName("stam");
+        customerToAdd.setLastName("stamstam");
+        customerToAdd.setEmail("stam@gmail.com");
+        customerToAdd.setPassword("4444");
+        try {
+            adminFacade.addCustomer(customerToAdd);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        Test.test("Admin Facade - add customer - email already exist");
+        customerToAdd = adminFacade.getSingleCustomer(1).orElseThrow(() -> new Exception("customer not exist"));
+        customerToAdd.setId(0);
+        customerToAdd.setFirstName("stam");
+        customerToAdd.setLastName("stamStam");
+        customerToAdd.setPassword("4444");
+        try {
+            adminFacade.addCustomer(customerToAdd);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        Test.test("Admin Facade - add customer - success");
+        customerToAdd = Customer.builder().firstName("Danny").lastName("Ayanou").email("Danny@gmail.com").password("1234").build();
+        adminFacade.addCustomer(customerToAdd);
+        adminFacade.getAllCustomer().forEach(System.out::println);
 
 
     }

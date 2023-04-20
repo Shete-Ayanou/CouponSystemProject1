@@ -69,7 +69,17 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
     }
 
     @Override
-    public void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) throws CouponSystemException {
+        int id = customer.getId();
+        if (this.customerDAO.isExist(id)) {
+            throw new CouponSystemException(ErrMsg.ADD_CUSTOMER_ID_EXIST);
+        }
+        String email = customer.getEmail();
+        if(this.customerDAO.isExistByEmail(email)){
+            throw new CouponSystemException(ErrMsg.ADD_CUSTOMER_EMAIL_EXIST);
+        }
+        this.customerDAO.add(customer);
+
 
     }
 
@@ -85,11 +95,11 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
 
     @Override
     public List<Customer> getAllCustomer() {
-        return null;
+        return this.customerDAO.getAll();
     }
 
     @Override
     public Optional<Customer> getSingleCustomer(int customerId) {
-        return Optional.empty();
+        return Optional.of(this.customerDAO.getSingle(customerId));
     }
 }

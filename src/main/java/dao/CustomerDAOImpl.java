@@ -17,6 +17,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     private static final String GET_ALL_CUSTOMER = "SELECT * FROM `coupon-system 159`.customers;";
     private static final String GET_SINGLE_CUSTOMER = "SELECT * FROM `coupon-system 159`.customers WHERE (`id` = ?)";
     private static final String IS_CUSTOMER_EXIST = "select exists(select * FROM `coupon-system 159`.customers where id = ?) as res";
+    private static final String IS_CUSTOMER_EXIST_BY_EMAIL = "SELECT exists (select  * FROM `coupon-system 159`.customers where email = ?) as res;";
 
     @Override
     public void add(Customer customer) {
@@ -85,4 +86,14 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
+    @Override
+    public boolean isExistByEmail(String email) {
+        Map<Integer,Object> params = new HashMap<>();
+        params.put(1,email);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_CUSTOMER_EXIST_BY_EMAIL,params);
+        Object firstObject = results.get(0);
+        Map<String, Object> pairs = (Map<String, Object>) firstObject;
+        Boolean res = ConvertUtils.booleanFromPairs(pairs);
+        return res;
+    }
 }

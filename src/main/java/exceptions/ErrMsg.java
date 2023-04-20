@@ -11,7 +11,11 @@ public enum ErrMsg {
 
     UPDATE_COMPANY_ID_NOT_EXIST("cannot update company since company id not exist"),
     UPDATE_COMPANY_CANNOT_UPDATE_ID("cannot update company's id"),
-    UPDATE_COMPANY_CANNOT_UPDATE_NAME("cannot update company's name");
+    UPDATE_COMPANY_CANNOT_UPDATE_NAME("cannot update company's name"),
+
+    ADD_CUSTOMER_ID_EXIST("cannot add customer since customer's id already exist"),
+    ADD_CUSTOMER_EMAIL_EXIST("cannot add customer since customer's  email already exist");
+
 
     private String message;
 

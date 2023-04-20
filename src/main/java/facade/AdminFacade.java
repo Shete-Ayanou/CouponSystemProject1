@@ -20,7 +20,7 @@ public interface AdminFacade {
 
     Optional<Company> getSingleCompany(int id);
 
-    void addCustomer(Customer customer);
+    void addCustomer(Customer customer) throws CouponSystemException;
 
     void updateCustomer(int customerId, Customer customer);
 
