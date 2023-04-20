@@ -16,7 +16,9 @@ public class CompanyDAOImpl implements CompanyDAO{
     private static final String DELETE_COMPANY = "DELETE FROM `coupon-system 159`.`companies` WHERE (`id` = ?);";
     private static final String GET_ALL_COMPANY ="SELECT * FROM `coupon-system 159`.companies";
     private static final String GET_SINGLE_COMPANY ="SELECT * FROM `coupon-system 159`.companies  WHERE (`id` = ?);";
-    private static final String IS_COMPANY_EXIST = "select exists (select * FROM `coupon-system 159`.companies where id = 999) as res";
+    private static final String IS_COMPANY_EXIST_ID = "select exists (select * FROM `coupon-system 159`.companies where id = ?) as res";
+    private static final String IS_COMPANY_EXISTS_BY_NAME ="select exists (select * FROM `coupon-system 159`.companies where name = ? ) as res;";
+    private static final String IS_COMPANY_EXISTS_BY_EMAIL ="select exists (select * FROM `coupon-system 159`.companies where email = ? ) as res;";
 
 
     @Override
@@ -79,7 +81,29 @@ public class CompanyDAOImpl implements CompanyDAO{
     public boolean isExist(Integer id) {
         Map<Integer,Object> params = new HashMap<>();
         params.put(1,id);
-        List<?> results = DBUtils.runQueryWithResultSet(IS_COMPANY_EXIST,params);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_COMPANY_EXIST_ID,params);
+        Object firstObject = results.get(0);
+        Map<String, Object> pairs = (Map<String, Object>) firstObject;
+        Boolean res = ConvertUtils.booleanFromPairs(pairs);
+        return res;
+    }
+
+    @Override
+    public boolean isExistByName(String name) {
+        Map<Integer,Object> params = new HashMap<>();
+        params.put(1,name);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_COMPANY_EXISTS_BY_NAME,params);
+        Object firstObject = results.get(0);
+        Map<String, Object> pairs = (Map<String, Object>) firstObject;
+        Boolean res = ConvertUtils.booleanFromPairs(pairs);
+        return res;
+    }
+
+    @Override
+    public boolean isExistByEmail(String email) {
+        Map<Integer,Object> params = new HashMap<>();
+        params.put(1,email);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_COMPANY_EXISTS_BY_EMAIL,params);
         Object firstObject = results.get(0);
         Map<String, Object> pairs = (Map<String, Object>) firstObject;
         Boolean res = ConvertUtils.booleanFromPairs(pairs);
