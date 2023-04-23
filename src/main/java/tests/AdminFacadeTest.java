@@ -1,6 +1,7 @@
 package tests;
 
 import beans.Company;
+import beans.Coupon;
 import beans.Customer;
 import facade.AdminFacade;
 import facade.AdminFacadeImpl;
@@ -136,6 +137,47 @@ public class AdminFacadeTest {
         customerToAdd = Customer.builder().firstName("Danny").lastName("Ayanou").email("Danny@gmail.com").password("1234").build();
         adminFacade.addCustomer(customerToAdd);
         adminFacade.getAllCustomer().forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------------------------------");
+
+        Customer toUpdateCustomer = null;
+        Test.test("Admin Facade - update customer - cannot update id that not exist");
+        toUpdateCustomer = adminFacade.getSingleCustomer(1).orElseThrow(() -> new Exception("customer not exist"));
+        try {
+            adminFacade.updateCustomer(9000, toUpdateCustomer);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        Test.test("Admin Facade - update customer - cannot update customer's id ");
+        toUpdateCustomer = adminFacade.getSingleCustomer(1).orElseThrow(() -> new Exception("company not exist"));
+        toUpdateCustomer.setId(2);
+        try {
+            adminFacade.updateCustomer(1, toUpdateCustomer);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        Test.test("Admin Facade - ge all customers - success");
+        adminFacade.getAllCustomer().forEach(System.out::println);
+
+        Test.test("Admin Facade - ge single customer - success");
+        System.out.println(adminFacade.getSingleCustomer(2));
+
+        System.out.println("---------------------------------------------------------------------------------");
+
+        Company toDeleteCompany = null;
+        Test.test("Admin Facade - delete company - cannot delete id that not exist");
+        toDeleteCompany = adminFacade.getSingleCompany(1).orElseThrow(()-> new Exception("company not exist"));
+
+        try {
+            adminFacade.deleteCompany(1);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
 
 
     }

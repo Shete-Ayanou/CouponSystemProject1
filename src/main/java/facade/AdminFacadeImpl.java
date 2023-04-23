@@ -2,6 +2,7 @@ package facade;
 
 
 import beans.Company;
+import beans.Coupon;
 import beans.Customer;
 import exceptions.CouponSystemException;
 import exceptions.ErrMsg;
@@ -54,8 +55,19 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
     }
 
     @Override
-    public void deleteCompany(int companyId) {
 
+
+    public void deleteCompany(int companyId) throws CouponSystemException {
+        if (!this.companyDAO.isExist(companyId)) {
+            throw new CouponSystemException(ErrMsg.DELETE_COMPANY_CANNOT_DELETE_COMPANY_NOT_EXIST);
+        }
+       List<Coupon> coupons = couponDAO.getCouponsByCompanyId(companyId);
+
+        for (Coupon coupon: coupons) {
+            couponDAO.deleteCouponPurchaseByCouponId(coupon.getId());
+            couponDAO.deleteCouponByCompanyId(companyId);
+        }
+        companyDAO.delete(companyId);
     }
 
     @Override
@@ -75,7 +87,7 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
             throw new CouponSystemException(ErrMsg.ADD_CUSTOMER_ID_EXIST);
         }
         String email = customer.getEmail();
-        if(this.customerDAO.isExistByEmail(email)){
+        if (this.customerDAO.isExistByEmail(email)) {
             throw new CouponSystemException(ErrMsg.ADD_CUSTOMER_EMAIL_EXIST);
         }
         this.customerDAO.add(customer);
@@ -84,14 +96,30 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
     }
 
     @Override
-    public void updateCustomer(int customerId, Customer customer) {
+    public void updateCustomer(int customerId, Customer customer) throws CouponSystemException {
+        if (!this.customerDAO.isExist(customerId)) {
+            throw new CouponSystemException(ErrMsg.UPDATE_CUSTOMER_ID_NOT_EXIST);
+        }
+        if (customerId != customer.getId()) {
+            throw new CouponSystemException(ErrMsg.UPDATE_CUSTOMER_CANNOT_UPDATE_ID);
+        }
+
+        this.customerDAO.update(customerId, customer);
 
     }
 
     @Override
-    public void deleteCustomer(int customerId) {
+    public void deleteCustomer(int customerId) throws CouponSystemException {
+        if (!this.customerDAO.isExist(customerId)) {
+            throw new CouponSystemException(ErrMsg.DELETE_CUSTOMER_CANNOT_DELETE_CUSTOMER_NOT_EXIST);
+        }
 
-    }
+        customerDAO.delete(customerId);
+/
+
+
+
+}
 
     @Override
     public List<Customer> getAllCustomer() {

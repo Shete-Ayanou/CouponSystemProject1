@@ -5,6 +5,7 @@ import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
 import db.DatabaseManager;
 import tests.AdminFacadeTest;
+import tests.CompanyFacadeTest;
 
 public class App {
 
@@ -16,6 +17,8 @@ public class App {
 
         AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
         adminFacadeTest.testAsAdmin();
+//        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
+//        companyFacadeTest.testAsCompany();
 
 
         DatabaseManager.endDatabase();

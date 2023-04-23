@@ -192,7 +192,7 @@ public class DatabaseManager {
         System.out.println(Art.COMPANIES);
         Company company1 = Company.builder()
                 .name("Apple")
-                .email("info@gmail.com")
+                .email("info@apple.com")
                 .password("1234")
                 .build();
         Company company2 = Company.builder()
