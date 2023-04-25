@@ -263,7 +263,7 @@ public class DatabaseManager {
         Coupon coupon2 = Coupon.builder()
                 .companyId(1)
                 .category(Category.COMPUTERS)
-                .title("20% off all laptops")
+                .title("test good")
                 .description("Get 20% discount on all laptops")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusWeeks(2)))

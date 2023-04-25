@@ -17,7 +17,7 @@ import java.sql.Date;
 @Data
 public class Coupon {
 
-    private long id;
+    private int id;
     private int companyId;
     private Category category;
     private String title;

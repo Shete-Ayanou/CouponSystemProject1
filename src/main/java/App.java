@@ -1,4 +1,6 @@
+import beans.Category;
 import beans.Company;
+import beans.Coupon;
 import beans.Customer;
 import dao.CouponDAOImpl;
 import dao.CustomerDAO;
@@ -15,10 +17,13 @@ public class App {
         System.out.println("Coupon System 159 started");
         DatabaseManager.startDatabase();
 
-        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
-        adminFacadeTest.testAsAdmin();
-//        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
-//        companyFacadeTest.testAsCompany();
+//        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
+//        adminFacadeTest.testAsAdmin();
+        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
+        companyFacadeTest.testAsCompany();
+
+
+
 
 
         DatabaseManager.endDatabase();

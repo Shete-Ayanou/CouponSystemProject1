@@ -1,54 +1,60 @@
 package tests;
 
+import beans.Category;
 import beans.Company;
 import beans.Coupon;
+import exceptions.CouponSystemException;
 import facade.ClientFacade;
 import facade.CompanyFacade;
 import facade.CompanyFacadeImpl;
 import utils.Test;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 public class CompanyFacadeTest {
 
 
-    private CompanyFacade companyFacade = new CompanyFacadeImpl(1);
+    private CompanyFacade companyFacade = new CompanyFacadeImpl(2);
 
   public void testAsCompany() throws Exception {
       Test.test("Company Facade - bad login - wrong email");
-      System.out.println((((ClientFacade) companyFacade).login("sdfsfs@gmail.com", "1234")));
+      System.out.println((((ClientFacade) companyFacade).login("info@apple.com", "1234")));
       Test.test("Company Facade - bad login - wrong password");
       System.out.println((((ClientFacade) companyFacade).login("info@gmail.com", "1234")));
 
       System.out.println("---------------------------------------------------------------------------------");
 
+      Test.test("Company Facade - bad add - wrong email");
 
-      Test.test("Coupon Facade - add Coupon - id already exist");
+      Coupon coupon = Coupon.builder()
+              .title("20% off all laptops")
+              .companyId(9)
+              .category(Category.FOOD)
+              .description("Crazy sale of 1+1 all GDB hamburgers")
+              .startDate(Date.valueOf(LocalDate.now()))
+              .endDate(Date.valueOf(LocalDate.now().plusWeeks(2)))
+              .amount(100)
+              .price(40.9)
+              .image("https://media.giphy.com/media/xT8qB6kzPwDT93Qht6/giphy.gif")
+              .build();
+      try {
+          companyFacade.addCoupon(coupon);
+      }catch (CouponSystemException e){
+          System.out.println(e.getMessage());
+      }
 
-//      couponToAdd = companyFacade.getSingleCoupon(2).orElseThrow(()-> new Exception("coupon already exist"));
-//
-//
-//      Test.test("Coupon Facade - add Coupon - title already exist");
-//      couponToAdd = companyFacade.getSingleCoupon(1).orElseThrow(()-> new Exception("coupon already exist"));
-//      couponToAdd.setTitle("1+1 All Burgers");
-//      try {
-//          companyFacade.addCoupon(couponToAdd);
-//      } catch (Exception e) {
-//          System.out.println(e.getMessage());
-//      }
-//
-//      Coupon toUpdateCoupon = null;
-//      Test.test("Admin Facade - update coupon - cannot update id that not exist");
-//      toUpdateCoupon = companyFacade.getSingleCoupon(1).orElseThrow(() -> new Exception("company not exist"));
-//      try {
-//          companyFacade.updateCoupon(21,toUpdateCoupon);
-//
-//      } catch (Exception e) {
-//          System.out.println(e.getMessage());
-//      }
 
-//      Test.test("Admin Facade - ge all customers - success");
-//      companyFacade.getCompanyCoupons().forEach(System.out::println);
-//
-//  }
+
+
+
+
+
+
+
+
+
+
   }
 }

@@ -1,6 +1,7 @@
 package facade;
 
 import beans.Category;
+import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 
@@ -15,6 +16,12 @@ public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade{
 
     @Override
     public boolean login(String email, String password) {
+        List<Company> companies = companyDAO.getAll();
+        for (Company company : companies) {
+            if (company.getEmail().equals(email) && company.getPassword().equals(password)) {
+                return true;
+            }
+        }
         return false;
     }
 

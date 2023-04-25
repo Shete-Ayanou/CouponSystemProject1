@@ -61,9 +61,9 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
         if (!this.companyDAO.isExist(companyId)) {
             throw new CouponSystemException(ErrMsg.DELETE_COMPANY_CANNOT_DELETE_COMPANY_NOT_EXIST);
         }
-       List<Coupon> coupons = couponDAO.getCouponsByCompanyId(companyId);
+        List<Coupon> coupons = couponDAO.getCouponsByCompanyId(companyId);
 
-        for (Coupon coupon: coupons) {
+        for (Coupon coupon : coupons) {
             couponDAO.deleteCouponPurchaseByCouponId(coupon.getId());
             couponDAO.deleteCouponByCompanyId(companyId);
         }
@@ -92,7 +92,6 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
         }
         this.customerDAO.add(customer);
 
-
     }
 
     @Override
@@ -113,13 +112,11 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
         if (!this.customerDAO.isExist(customerId)) {
             throw new CouponSystemException(ErrMsg.DELETE_CUSTOMER_CANNOT_DELETE_CUSTOMER_NOT_EXIST);
         }
-
+        customerDAO.deleteCouponsByCustomerId(customerId);
         customerDAO.delete(customerId);
-/
 
 
-
-}
+    }
 
     @Override
     public List<Customer> getAllCustomer() {

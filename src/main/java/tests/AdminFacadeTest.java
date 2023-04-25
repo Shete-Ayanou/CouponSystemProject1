@@ -169,13 +169,16 @@ public class AdminFacadeTest {
         Company toDeleteCompany = null;
         Test.test("Admin Facade - delete company - cannot delete id that not exist");
         toDeleteCompany = adminFacade.getSingleCompany(1).orElseThrow(()-> new Exception("company not exist"));
+        toDeleteCompany.setId(10);
 
         try {
-            adminFacade.deleteCompany(1);
+            adminFacade.deleteCompany(10);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        adminFacade.getAllCompanies().forEach(System.out::println);
+
 
 
 

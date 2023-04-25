@@ -18,6 +18,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     private static final String GET_SINGLE_CUSTOMER = "SELECT * FROM `coupon-system 159`.customers WHERE (`id` = ?)";
     private static final String IS_CUSTOMER_EXIST = "select exists(select * FROM `coupon-system 159`.customers where id = ?) as res";
     private static final String IS_CUSTOMER_EXIST_BY_EMAIL = "SELECT exists (select  * FROM `coupon-system 159`.customers where email = ?) as res;";
+    private static final String DELETE_COUPONS_BY_CUSTOMER_ID = "DELETE FROM `coupon-system 159`.`customer_vs_coupons` WHERE (`customer_id` = '1');";
+
 
     @Override
     public void add(Customer customer) {
@@ -95,5 +97,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         Map<String, Object> pairs = (Map<String, Object>) firstObject;
         Boolean res = ConvertUtils.booleanFromPairs(pairs);
         return res;
+    }
+
+    @Override
+    public void deleteCouponsByCustomerId(int customerId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, customerId);
+        DBUtils.runQuery(DELETE_COUPONS_BY_CUSTOMER_ID, params);
+
     }
 }

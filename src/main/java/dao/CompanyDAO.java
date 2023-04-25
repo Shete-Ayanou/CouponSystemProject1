@@ -8,6 +8,8 @@ public interface CompanyDAO extends DAO<Company, Integer> {
 
     boolean isExistByEmail(String email);
 
+    void deleteCouponPurchase(Integer couponId);
+
 
 
 

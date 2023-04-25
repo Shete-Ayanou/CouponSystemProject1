@@ -143,7 +143,7 @@ public class CouponDAOImpl implements CouponDAO {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, companyId);
         List<Coupon> coupons = new ArrayList<>();
-        List<?> results = DBUtils.runQueryWithResultSet(GET_COUPONS_BY_COMPANY_ID);
+        List<?> results = DBUtils.runQueryWithResultSet(GET_COUPONS_BY_COMPANY_ID,params);
         for (Object obj : results) {
             Map<String, Object> pairs = (Map<String, Object>) obj;
             Coupon coupon = ConvertUtils.couponFromPairs(pairs);

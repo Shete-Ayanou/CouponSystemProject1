@@ -19,6 +19,7 @@ public class CompanyDAOImpl implements CompanyDAO{
     private static final String IS_COMPANY_EXIST_ID = "select exists (select * FROM `coupon-system 159`.companies where id = ?) as res";
     private static final String IS_COMPANY_EXISTS_BY_NAME ="select exists (select * FROM `coupon-system 159`.companies where name = ? ) as res;";
     private static final String IS_COMPANY_EXISTS_BY_EMAIL ="select exists (select * FROM `coupon-system 159`.companies where email = ? ) as res;";
+    private static final String DELETE_PURCHASE_BY_COUPON_ID = "delete  FROM `coupon-system 159`.customer_vs_coupons where coupon_id = 5;";
 
 
     @Override
@@ -109,4 +110,13 @@ public class CompanyDAOImpl implements CompanyDAO{
         Boolean res = ConvertUtils.booleanFromPairs(pairs);
         return res;
     }
+
+    public void deleteCouponPurchase(Integer couponId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1,couponId);
+        DBUtils.runQuery(DELETE_PURCHASE_BY_COUPON_ID,params);
+
+    }
+
+
 }
