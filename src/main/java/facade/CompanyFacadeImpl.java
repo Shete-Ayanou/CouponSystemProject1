@@ -24,6 +24,7 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
         List<Company> companies = companyDAO.getAll();
         for (Company company : companies) {
             if (company.getEmail().equals(email) && company.getPassword().equals(password)) {
+                companyId = company.getId();
                 return true;
             }
         }

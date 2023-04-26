@@ -5,20 +5,22 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import dao.CustomerDAOImpl;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@AllArgsConstructor
 public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
 
     private int customerId;
 
     @Override
     public boolean login(String email, String password) {
-        List<Company> companies = companyDAO.getAll();
-        for (Company company : companies) {
-            if (company.getEmail().equals(email) && company.getPassword().equals(password)) {
+        List<Customer> customers = customerDAO.getAll();
+        for (Customer customer : customers) {
+            if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
+                customerId = customer.getId();
                 return true;
             }
         }
