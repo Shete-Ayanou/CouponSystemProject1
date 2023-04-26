@@ -1,7 +1,9 @@
 package dao;
 
 import beans.Company;
+import beans.Coupon;
 import beans.Customer;
+import beans.Customer_Vs_Coupon;
 import db.ConvertUtils;
 import db.DBUtils;
 
@@ -18,7 +20,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     private static final String GET_SINGLE_CUSTOMER = "SELECT * FROM `coupon-system 159`.customers WHERE (`id` = ?)";
     private static final String IS_CUSTOMER_EXIST = "select exists(select * FROM `coupon-system 159`.customers where id = ?) as res";
     private static final String IS_CUSTOMER_EXIST_BY_EMAIL = "SELECT exists (select  * FROM `coupon-system 159`.customers where email = ?) as res;";
-    private static final String DELETE_COUPONS_BY_CUSTOMER_ID = "DELETE FROM `coupon-system 159`.`customer_vs_coupons` WHERE (`customer_id` = '1');";
+    private static final String DELETE_COUPONS_BY_CUSTOMER_ID = "DELETE FROM `coupon-system 159`.`customer_vs_coupons` WHERE (`customer_id` = ?);";
+    private static final String IS_CUSTOMER_ALREADY_HAVE_COUPON = "SELECT exists(select * FROM `coupon-system 159`.customer_vs_coupons where customer_id = ? and coupon_id = ?) as res";
+    private static final String CUSTOMER_PURCHASE_HISTORY = "SELECT * FROM `coupon-system 159`.customer_vs_coupons where customer_id =?";
+    private static final String CUSTOMER_COUPONS_BY_COUPON_ID = "SELECT * FROM `coupon-system 159`.coupons where id = ?";
 
 
     @Override
@@ -90,9 +95,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean isExistByEmail(String email) {
-        Map<Integer,Object> params = new HashMap<>();
-        params.put(1,email);
-        List<?> results = DBUtils.runQueryWithResultSet(IS_CUSTOMER_EXIST_BY_EMAIL,params);
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, email);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_CUSTOMER_EXIST_BY_EMAIL, params);
         Object firstObject = results.get(0);
         Map<String, Object> pairs = (Map<String, Object>) firstObject;
         Boolean res = ConvertUtils.booleanFromPairs(pairs);
@@ -106,4 +111,61 @@ public class CustomerDAOImpl implements CustomerDAO {
         DBUtils.runQuery(DELETE_COUPONS_BY_CUSTOMER_ID, params);
 
     }
+
+    @Override
+    public boolean isCustomerAlreadyHaveCoupon(int customerId, int couponId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, customerId);
+        params.put(2, couponId);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_CUSTOMER_ALREADY_HAVE_COUPON, params);
+        Object firstObject = results.get(0);
+        Map<String, Object> pairs = (Map<String, Object>) firstObject;
+        Boolean res = ConvertUtils.booleanFromPairs(pairs);
+        return res;
+    }
+
+    @Override
+    public List<Coupon> getCouponBycustomeriD(int customerId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, customerId);
+        List<?> results = DBUtils.runQueryWithResultSet(CUSTOMER_PURCHASE_HISTORY, params);
+
+        List<Customer_Vs_Coupon> records = getCouponRecords(results);
+
+        List<Coupon> coupons = getCustomerCoupons(records);
+
+
+
+     return coupons;
+
+    }
+
+    private List<Coupon> getCustomerCoupons(List<Customer_Vs_Coupon> records){
+
+        List<Coupon> coupons = new ArrayList<>();
+        for (Customer_Vs_Coupon customer_Vs_Coupon  : records ) {
+            customer_Vs_Coupon.getCouponId();
+            Map<Integer, Object> params = new HashMap<>();
+            params.put(1,customer_Vs_Coupon.getCouponId() );
+            List<?> fromDB = DBUtils.runQueryWithResultSet(CUSTOMER_COUPONS_BY_COUPON_ID, params);
+            Object firstObject = fromDB.get(0);
+            Map<String, Object> pairs = (Map<String, Object>) firstObject;
+            Coupon coupon = ConvertUtils.couponFromPairs(pairs);
+
+            coupons.add(coupon);
+
+        }
+        return coupons;
+
+    }
+    private List<Customer_Vs_Coupon> getCouponRecords(List<?> results) {
+        List<Customer_Vs_Coupon> customer_vs_coupons = new ArrayList<>();
+        for (Object Obj : results) {
+            Map<String, Object> pairs = (Map<String, Object>) Obj;
+            Customer_Vs_Coupon customer_vs_coupon = ConvertUtils.customerVsCouponFromPairs(pairs);
+            customer_vs_coupons.add(customer_vs_coupon);
+        }
+       return customer_vs_coupons;
+    }
+
 }

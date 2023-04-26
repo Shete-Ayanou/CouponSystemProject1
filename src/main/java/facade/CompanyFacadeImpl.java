@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
@@ -82,30 +83,39 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
 
     @Override
     public List<Coupon> getCompanyCoupons(Category category) {
+        List<Coupon> couponFromDB = couponDAO.getCouponsByCompanyId(companyId);
+        return couponFromDB.stream()
+                .filter(coupon -> coupon.getCategory() == category)
+                .collect(Collectors.toList());
+    }
+//        List<Coupon> coupons = new ArrayList<>();
+//        List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
+//        for (Coupon coupon : couponFromDB ) {
+//            if(coupon.getCategory() == category){
+//                coupons.add(coupon);
+//            }
+//        }
+//        return coupons;
+//    }
+
+//        List<Coupon> coupons1 = couponFromDB.stream().filter(c->c.getCategory() == category);
+
+    @Override
+    public List<Coupon> getCompanyCoupons(double MaxPrice) {
         List<Coupon> coupons = new ArrayList<>();
         List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
-//        couponFromDB.stream().filter(c->c.getCategory() == category).forEach(coupons.add(c));
         for (Coupon coupon : couponFromDB ) {
-            if(coupon.getCategory() == category){
+            if(coupon.getPrice() < MaxPrice){
                 coupons.add(coupon);
             }
         }
         return coupons;
     }
 
-//    @Override
-//    public List<Coupon> getCompanyCoupons(Category category) {
-//        return couponDAO.getCouponsByCompanyId(companyId).takeWhile((c)-> c.getCategory() ==category);
-//    }
-
-    @Override
-    public List<Coupon> getCompanyCoupons(double MaxPrice) {
-        return null;
-    }
 
     @Override
     public Company getCompanyDetails() {
-        return null;
+        return companyDAO.getSingle(companyId);
     }
 
 

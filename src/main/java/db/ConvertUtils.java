@@ -1,12 +1,11 @@
 package db;
 
 
-import beans.Category;
-import beans.Company;
-import beans.Coupon;
-import beans.Customer;
+import beans.*;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Map;
 public class ConvertUtils {
 
     public static Coupon couponFromPairs(Map<String, Object> map) {
-        long id = (int) map.get("id");
+        int id = (int) map.get("id");
         int companyId = (int) map.get("company_id");
         int category = (int) map.get("category_id");
         String title = (String) map.get("title");
@@ -62,6 +61,15 @@ public class ConvertUtils {
                 .lastName(lastName)
                 .email(email)
                 .password(password)
+                .build();
+    }
+
+    public static Customer_Vs_Coupon customerVsCouponFromPairs(Map<String, Object> map) {
+        int customerId = (int) map.get("customer_id");
+        int couponId = (int) map.get("coupon_id");
+        return Customer_Vs_Coupon.builder()
+                .customerId(customerId)
+                .couponId(couponId)
                 .build();
     }
 }
