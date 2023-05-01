@@ -68,7 +68,7 @@ public class DatabaseManager {
             "    REFERENCES `coupon-system 159`.`categories` (`id`)\n" +
             "    ON DELETE NO ACTION\n" +
             "    ON UPDATE NO ACTION);";
-    private static final String CREATE_TABLE_CUSTOMER_COUPONS = "CREATE TABLE `coupon-system 159`.`customer_vs_coupons` (\n" +
+    private static final String CREATE_TABLE_CUSTOMER_VS_COUPONS = "CREATE TABLE `coupon-system 159`.`customer_vs_coupons` (\n" +
             "  `customer_id` INT NOT NULL,\n" +
             "  `coupon_id` INT NOT NULL,\n" +
             "  PRIMARY KEY (`customer_id`, `coupon_id`),\n" +
@@ -92,7 +92,7 @@ public class DatabaseManager {
         DBUtils.runQuery(CREATE_TABLE_CUSTOMERS);
         DBUtils.runQuery(CREATE_TABLE_CATEGORIES);
         DBUtils.runQuery(CREATE_TABLE_COUPONS);
-        DBUtils.runQuery(CREATE_TABLE_CUSTOMER_COUPONS);
+        DBUtils.runQuery(CREATE_TABLE_CUSTOMER_VS_COUPONS);
         ConnectionPool.getConnectionPool();
         initDatabase();
 
@@ -197,47 +197,47 @@ public class DatabaseManager {
                 .build();
         Company company2 = Company.builder()
                 .name("Microsoft")
-                .email("info@gmail.com")
+                .email("info@Microsoft.com")
                 .password("1234")
                 .build();
         Company company3 = Company.builder()
                 .name("good-pharm")
-                .email("info@gmail.com")
+                .email("info@good-pharm.com")
                 .password("1234")
                 .build();
         Company company4 = Company.builder()
                 .name("Ista")
-                .email("info@gmail.com")
+                .email("info@Ista.com")
                 .password("1234")
                 .build();
         Company company5 = Company.builder()
                 .name("Super-pharm")
-                .email("info@gmail.com")
+                .email("info@Super-pharm.com")
                 .password("1234")
                 .build();
         Company company6 = Company.builder()
                 .name("PizaHat")
-                .email("info@gmail.com")
+                .email("info@PizaHat.com")
                 .password("1234")
                 .build();
         Company company7 = Company.builder()
                 .name("Polo")
-                .email("info@gmail.com")
+                .email("info@Polo.com")
                 .password("1234")
                 .build();
         Company company8 = Company.builder()
                 .name("Holiday-finder")
-                .email("info@gmail.com")
+                .email("info@Holiday-finder.com")
                 .password("1234")
                 .build();
         Company company9 = Company.builder()
-                .name("GDB Burger")
-                .email("info@gmail.com")
+                .name("GDB-Burger")
+                .email("info@GDB-Burger.com")
                 .password("1234")
                 .build();
         Company company10 = Company.builder()
                 .name("Fitbody")
-                .email("info@gmail.com")
+                .email("info@Fitbody.com")
                 .password("1234")
                 .build();
         List<Company> companies = List.of(company1, company2, company3, company4,

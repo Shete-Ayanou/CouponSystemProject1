@@ -17,11 +17,11 @@ public class App {
         System.out.println("Coupon System 159 started");
         DatabaseManager.startDatabase();
 
-//        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
-//        adminFacadeTest.testAsAdmin();
-        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
-        companyFacadeTest.testAsCompany();
-
+////        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
+////        adminFacadeTest.testAsAdmin();
+//        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
+//        companyFacadeTest.testAsCompany();
+//
 
 
 

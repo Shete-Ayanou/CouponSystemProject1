@@ -8,5 +8,5 @@ public abstract class ClientFacade {
     protected CouponDAO couponDAO = new CouponDAOImpl();
     protected CategoryDAO categoryDAO = new CategoryDAOImpl();
 
-    public abstract boolean login(String email, String password );
+    public abstract boolean login(String email, String password);
 }
