@@ -50,8 +50,6 @@ public class AdminFacadeImpl extends ClientFacade implements AdminFacade {
             throw new CouponSystemException(ErrMsg.UPDATE_COMPANY_CANNOT_UPDATE_NAME);
         }
         this.companyDAO.update(companyId, company);
-
-
     }
 
     @Override

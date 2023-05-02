@@ -14,7 +14,7 @@ public class CouponExpirationDailyJob implements Runnable {
     private CouponDAO couponDAO;
     private boolean quit;
 
-    private boolean shouldRun;
+    private boolean shouldRun ;
 
 
     public CouponExpirationDailyJob() {
@@ -29,14 +29,14 @@ public class CouponExpirationDailyJob implements Runnable {
             System.out.println("start checking coupon ex");
             List<Coupon> coupons = couponDAO.getAll();
             for (Coupon coupon : coupons) {
-                if (coupon.getEndDate().after(getDate())) {
+                if (coupon.getEndDate().after(new Date())) {
                     couponDAO.delete(coupon.getId());
                     couponDAO.deleteCouponPurchaseByCouponId(coupon.getId());
                 }
             }
             System.out.println("stopped checking coupon ex");
             try {
-                Thread.sleep(1000*60*60*60*24);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -51,12 +51,12 @@ public class CouponExpirationDailyJob implements Runnable {
     }
 
 
-    private Date getDate() {
-        LocalDateTime currentDate = LocalDateTime.now();
-        return new Date(currentDate.getYear()
-                , currentDate.getMonthValue(), currentDate.getDayOfMonth()
-                , currentDate.getHour(), currentDate.getMinute(), currentDate.getSecond());
-    }
+//    private Date getDate() {
+//        LocalDateTime currentDate = LocalDateTime.now();
+//        return new Date(currentDate.getYear()
+//                , currentDate.getMonthValue(), currentDate.getDayOfMonth()
+//                , currentDate.getHour(), currentDate.getMinute(), currentDate.getSecond());
+//    }
 
 
 }

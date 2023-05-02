@@ -11,7 +11,6 @@ public class JobTester {
 
         Thread couponCleaner = new Thread(couponExpirationDailyJob);
 
-        // cleaner is starting //
         couponCleaner.start();
 
 

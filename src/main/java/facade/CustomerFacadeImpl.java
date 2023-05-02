@@ -5,11 +5,15 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import dao.CustomerDAOImpl;
+import exceptions.CouponSystemException;
+import exceptions.ErrMsg;
 import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @AllArgsConstructor
 public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
 
@@ -28,12 +32,18 @@ public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
     }
 
     @Override
-    public void purchaseCoupon(Coupon coupon) {  // TODO: 25/04/23
-        if (customerDAO.isCustomerAlreadyHaveCoupon(customerId, coupon.getId())) {
-            // TODO: 25/04/23  trow expition
+    public void purchaseCoupon(Coupon coupon) throws CouponSystemException {  // TODO: 25/04/23
+        if (this.customerDAO.isCustomerAlreadyHaveCoupon(customerId, coupon.getId())) {
+            throw new CouponSystemException(ErrMsg.CUSTOMER_ALREADY_HAVE_COUPON);
         }
-//
-
+        if (!this.couponDAO.isExist(coupon.getId())) {
+            throw new CouponSystemException(ErrMsg.PURCHASE_COUPON_NOT_EXIST);
+        }
+        if (coupon.getEndDate().after(new Date())) {
+            throw new CouponSystemException(ErrMsg.COUPON_EXPIRED);
+        }
+        couponDAO.addCouponPurchase(customerId, coupon.getId());
+        couponDAO.delete(coupon.getId());
 
     }
 
@@ -60,7 +70,8 @@ public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
                 .collect(Collectors.toList());
         return coupons;
     }
-//     List<Coupon> coupons = new ArrayList<>();
+
+    //     List<Coupon> coupons = new ArrayList<>();
 //        List<Coupon> couponFromDB =  customerDAO.getCouponBycustomeriD(customerId);
 //        for (Coupon coupon : couponFromDB ) {
 //            if(coupon.getPrice() < MaxPrice){

@@ -14,7 +14,7 @@ public interface CompanyFacade {
 
     void updateCoupon(int couponId, Coupon coupon) throws CouponSystemException;
 
-    void deleteCoupon(int couponId);
+    void deleteCoupon(int couponId) throws CouponSystemException;
 
     List<Coupon> getCompanyCoupons();
 

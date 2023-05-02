@@ -43,7 +43,7 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
     }
 
 
-    // TODO: 24/04/23  ask kobi about --  
+    // TODO: 24/04/23  ask kobi about --  ASK KOBI (  UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name"),
     @Override
     public void updateCoupon(int couponId, Coupon coupon) throws CouponSystemException {
         if (!this.couponDAO.isExist(coupon.getId())) {
@@ -52,6 +52,7 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
         if(couponId != coupon.getId()){
             throw new CouponSystemException(ErrMsg.UPDATE_COUPON_CANNOT_UPDATE_ID);
         }
+
         Coupon couponFromDB = couponDAO.getSingle(coupon.getId());
         couponFromDB.setTitle(coupon.getTitle());
         couponFromDB.setCategory(coupon.getCategory());
@@ -69,8 +70,10 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
     
 
     @Override
-    public void deleteCoupon(int couponId) {
-        // TODO: 24/04/23  -- add validtion for couopn exist 
+    public void deleteCoupon(int couponId) throws CouponSystemException {
+        if(!this.couponDAO.isExist(couponId)){
+            throw new CouponSystemException(ErrMsg.DELETE_COUPON_BY_ID);
+        }
         couponDAO.deleteCouponPurchaseByCouponId(couponId);
         this.couponDAO.deleteCouponByCompanyId(companyId);
 
@@ -103,15 +106,21 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
 
     @Override
     public List<Coupon> getCompanyCoupons(double MaxPrice) {
-        List<Coupon> coupons = new ArrayList<>();
-        List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
-        for (Coupon coupon : couponFromDB ) {
-            if(coupon.getPrice() < MaxPrice){
-                coupons.add(coupon);
-            }
-        }
-        return coupons;
+
+        List<Coupon> couponFromDB = couponDAO.getCouponsByCompanyId(companyId);
+        return couponFromDB.stream()
+                .filter(coupon -> coupon.getPrice() <MaxPrice)
+                .collect(Collectors.toList());
     }
+//        List<Coupon> coupons = new ArrayList<>();
+//        List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
+//        for (Coupon coupon : couponFromDB ) {
+//            if(coupon.getPrice() < MaxPrice){
+//                coupons.add(coupon);
+//            }
+//        }
+//        return coupons;
+//    }
 
 
     @Override

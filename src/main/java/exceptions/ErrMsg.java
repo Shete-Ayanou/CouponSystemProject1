@@ -22,10 +22,18 @@ public enum ErrMsg {
     ADD_COUPON_TITLE_EXIST("cannot add coupon title already exist"),
     UPDATE_COUPON__ID_NOT_EXIST("cannot update coupon since coupon id not exist"),
     UPDATE_COUPON_CANNOT_UPDATE_ID("cannot update coupon's id"),
-    UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name");
+    DELETE_COUPON_BY_ID("cannot delete coupon since coupon id not exist"),
+
+    UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name"),
+    CUSTOMER_ALREADY_HAVE_COUPON ("cannot purchase Coupon since customer already have the coupon "),
+    PURCHASE_COUPON_NOT_EXIST("cannot purchase coupon since No coupons in stock"),
+    COUPON_EXPIRED ("cannot purchase coupon since coupon expired");
 
 
-    private String message;
+
+
+
+    private  String message;
 
     ErrMsg(String message) {
         this.message = message;
