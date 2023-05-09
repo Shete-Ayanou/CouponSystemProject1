@@ -17,4 +17,6 @@ public interface CouponDAO extends DAO<Coupon, Integer> {
     List<Coupon> getCouponsByCompanyId(int companyId );
     void deleteCouponPurchaseByCouponId(long couponId);
 
+    public List<Coupon> getCouponsByTitle(String title);
+
 }

@@ -8,6 +8,7 @@ import dao.CustomerDAOImpl;
 import exceptions.CouponSystemException;
 import exceptions.ErrMsg;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
 
     private int customerId;

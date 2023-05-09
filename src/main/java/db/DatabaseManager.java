@@ -263,7 +263,7 @@ public class DatabaseManager {
         Coupon coupon2 = Coupon.builder()
                 .companyId(1)
                 .category(Category.COMPUTERS)
-                .title("test good")
+                .title("Buy one get one free on keyboards")
                 .description("Get 20% discount on all laptops")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusWeeks(2)))
@@ -273,7 +273,7 @@ public class DatabaseManager {
                 .build();
 
         Coupon coupon3 = Coupon.builder()
-                .companyId(2)
+                .companyId(5)
                 .category(Category.COMPUTERS)
                 .title("Buy one get one free on keyboards")
                 .description("Buy one keyboard and get another one for free")
@@ -284,7 +284,7 @@ public class DatabaseManager {
                 .image("https://media.giphy.com/media/9rtpurjbqiqZXbBBet/giphy.gif")
                 .build();
         Coupon coupon4 = Coupon.builder()
-                .companyId(6)
+                .companyId(5)
                 .category(Category.FOOD)
                 .title("50% off all pizzas")
                 .description("Get 50% discount on all pizza orders")
@@ -295,7 +295,7 @@ public class DatabaseManager {
                 .image("https://media.giphy.com/media/9fuvOqZ8tbZOU/giphy.gif")
                 .build();
         Coupon coupon5 = Coupon.builder()
-                .companyId(3)
+                .companyId(5)
                 .category(Category.HEALTH)
                 .title("Get 3 for the price of 2 on all vitamins")
                 .description("Buy 3 vitamin products and get the cheapest one for free")
@@ -317,7 +317,7 @@ public class DatabaseManager {
                 .image("https://www.example.com/supplements.jpg")
                 .build();
         Coupon coupon7 = Coupon.builder()
-                .companyId(5)
+                .companyId(4)
                 .category(Category.VACATIONS)
                 .title("Summer Sale - 50% off all resorts!")
                 .description("GBook your next vacation and get 50% off all resort packages!")
@@ -328,7 +328,7 @@ public class DatabaseManager {
                 .image("https://media.giphy.com/media/j0QzDgFZRX2njRxxtP/giphy.gif")
                 .build();
         Coupon coupon8 = Coupon.builder()
-                .companyId(5)
+                .companyId(8)
                 .category(Category.VACATIONS)
                 .title("Winter Wonderland - 25% off all ski trips!")
                 .description("Escape to the mountains and get 25% off all ski trips!")
@@ -339,7 +339,7 @@ public class DatabaseManager {
                 .image("https://media.giphy.com/media/hs3qvWPf6X4fWP1cwk/giphy.gif")
                 .build();
         Coupon coupon9 = Coupon.builder()
-                .companyId(5)
+                .companyId(7)
                 .category(Category.SPORTS)
                 .title("Get in shape! 20% off all gym memberships")
                 .description("Join now and get 20% off all gym memberships!")
@@ -350,7 +350,7 @@ public class DatabaseManager {
                 .image("https://giphy.com/clips/perfectketo-workout-training-working-out-y48NCmNho57e12ALdR")
                 .build();
         Coupon coupon10 = Coupon.builder()
-                .companyId(5)
+                .companyId(10)
                 .category(Category.SPORTS)
                 .title("New Running Shoes - 15% off!")
                 .description("Upgrade your running game with our latest collection of running shoes")

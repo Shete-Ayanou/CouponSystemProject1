@@ -27,10 +27,8 @@ public enum ErrMsg {
     UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name"),
     CUSTOMER_ALREADY_HAVE_COUPON ("cannot purchase Coupon since customer already have the coupon "),
     PURCHASE_COUPON_NOT_EXIST("cannot purchase coupon since No coupons in stock"),
-    COUPON_EXPIRED ("cannot purchase coupon since coupon expired");
-
-
-
+    COUPON_EXPIRED ("cannot purchase coupon since coupon expired"),
+    LOGIN_MANAGER("Invalid email or password");
 
 
     private  String message;

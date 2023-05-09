@@ -7,6 +7,7 @@ import beans.Customer;
 import exceptions.CouponSystemException;
 import exceptions.ErrMsg;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
 
     private int companyId;
@@ -35,25 +37,27 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
     @Override
     public void addCoupon(Coupon coupon) throws CouponSystemException {
         String title = coupon.getTitle();
+
         if (this.couponDAO.isExistByTitle(title)) {
-            throw new CouponSystemException(ErrMsg.ADD_COUPON_TITLE_EXIST);
+            List<Coupon> coupons = couponDAO.getCouponsByTitle(title);
+            for (Coupon coupon1: coupons) {
+                if(coupon1.getCompanyId() == coupon.getCompanyId())
+                    throw new CouponSystemException(ErrMsg.ADD_COUPON_TITLE_EXIST);
+            }
         }
         this.couponDAO.add(coupon);
-
     }
 
 
-    // TODO: 24/04/23  ask kobi about --  ASK KOBI (  UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name"),
+
+   //TODO: 24/04/23  ask kobi about --  ASK KOBI (  UPDATE_COUPON_COMPANY_ID("cannot update coupon companyId name"),
     @Override
     public void updateCoupon(int couponId, Coupon coupon) throws CouponSystemException {
-        if (!this.couponDAO.isExist(coupon.getId())) {
+        if (!this.couponDAO.isExist(couponId)) {
             throw new CouponSystemException(ErrMsg.UPDATE_COUPON__ID_NOT_EXIST);
         }
-        if(couponId != coupon.getId()){
-            throw new CouponSystemException(ErrMsg.UPDATE_COUPON_CANNOT_UPDATE_ID);
-        }
 
-        Coupon couponFromDB = couponDAO.getSingle(coupon.getId());
+        Coupon couponFromDB = couponDAO.getSingle(couponId);
         couponFromDB.setTitle(coupon.getTitle());
         couponFromDB.setCategory(coupon.getCategory());
         couponFromDB.setAmount(coupon.getAmount());
@@ -75,8 +79,7 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
             throw new CouponSystemException(ErrMsg.DELETE_COUPON_BY_ID);
         }
         couponDAO.deleteCouponPurchaseByCouponId(couponId);
-        this.couponDAO.deleteCouponByCompanyId(companyId);
-
+        this.couponDAO.delete(couponId);
     }
 
 

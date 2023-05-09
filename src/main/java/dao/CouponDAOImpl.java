@@ -16,13 +16,14 @@ public class CouponDAOImpl implements CouponDAO {
     private static final String DELETE_COUPON = "DELETE FROM `coupon-system 159`.`coupons` WHERE (`id` = ?);";
     private static final String GET_ALL_COUPON = "SELECT * FROM `coupon-system 159`.coupons";
     private static final String GET_SINGLE_COUPON = "SELECT * FROM `coupon-system 159`.coupons WHERE (`id` = ?);";
-    private static final String IS_COUPON_EXIST = "select exists (select * FROM `coupon-system 159`.coupons where id = ?) as res";
+    private static final String IS_COUPON_EXIST = "SELECT exists (SELECT * FROM `coupon-system 159`.coupons where id = ?) as res";
     private static final String INSERT_COUPON_PURCHASE ="INSERT INTO `coupon-system 159`.`customer_vs_coupons` (`customer_id`, `coupon_id`) VALUES (?, ?)";
     private static final String DELETE_COUPON_PURCHASE = "DELETE FROM `coupon-system 159`.`customer_vs_coupons` WHERE (`customer_id` = ?) and (`coupon_id` = ?)";
     private static final String DELETE_COUPON_BY_COMPANY_ID ="DELETE FROM `coupon-system 159`.`coupons` WHERE (`company_id` = ?)";
     private static final String IS_COUPON_EXISTS_BY_TITLE = " select exists( select * FROM `coupon-system 159`.coupons where title = ?) as res; " ;
     private static final String GET_COUPONS_BY_COMPANY_ID = "SELECT * FROM `coupon-system 159`.coupons where company_id = ?";
     private final String DELETE_COUPONS_BY_COUPONS_ID = "DELETE FROM `coupon-system`.`customer_vs_coupon` WHERE (`coupon_id` = ?)";
+    private final String GET_COUPONS_BY_TITLE = "SELECT * FROM `coupon-system 159`.coupons where title = ?";
     @Override
     public void add(Coupon coupon) {
         Map<Integer, Object> params = new HashMap<>();
@@ -42,7 +43,7 @@ public class CouponDAOImpl implements CouponDAO {
     @Override
     public void update(Integer id, Coupon coupon) {
         Map<Integer, Object> params = new HashMap<>();
-        params.put(1, coupon.getCompanyId());
+        params.put(1,id);
         params.put(2, coupon.getCategory().getDBValue());
         params.put(3, coupon.getTitle());
         params.put(4, coupon.getDescription());
@@ -52,7 +53,7 @@ public class CouponDAOImpl implements CouponDAO {
         params.put(8, coupon.getPrice());
         params.put(9, coupon.getImage());
         params.put(10, coupon.getId());
-        DBUtils.runQuery(UPDATE_COUPON, params);
+        DBUtils.runQuery(UPDATE_COUPON,params);
 
     }
 
@@ -81,7 +82,7 @@ public class CouponDAOImpl implements CouponDAO {
     public Coupon getSingle(Integer id) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
-        List<?> results = DBUtils.runQueryWithResultSet(GET_SINGLE_COUPON);
+        List<?> results = DBUtils.runQueryWithResultSet(GET_SINGLE_COUPON,params);
         Object firstObject = results.get(0);
         Map<String, Object> pairs = (Map<String, Object>) firstObject;
         Coupon coupon = ConvertUtils.couponFromPairs(pairs);
@@ -93,7 +94,7 @@ public class CouponDAOImpl implements CouponDAO {
     public boolean isExist(Integer id) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
-        List<?> results = DBUtils.runQueryWithResultSet(IS_COUPON_EXIST);
+        List<?> results = DBUtils.runQueryWithResultSet(IS_COUPON_EXIST,params);
         Object firstObject = results.get(0);
         Map<String, Object> pairs = (Map<String, Object>) firstObject;
         boolean res = ConvertUtils.booleanFromPairs(pairs);
@@ -118,7 +119,7 @@ public class CouponDAOImpl implements CouponDAO {
     }
 
     @Override
-    public void deleteCouponByCompanyId(int companyId) {
+    public void deleteCouponByCompanyId(int companyId ) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, companyId);
         DBUtils.runQuery(DELETE_COUPON_BY_COMPANY_ID,params);
@@ -156,6 +157,19 @@ public class CouponDAOImpl implements CouponDAO {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponId);
         DBUtils.runQuery(DELETE_COUPONS_BY_COUPONS_ID, params);
+    }
+
+    public List<Coupon> getCouponsByTitle(String title) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, title);
+        List<Coupon> coupons = new ArrayList<>();
+        List<?> results = DBUtils.runQueryWithResultSet(GET_COUPONS_BY_TITLE,params);
+        for (Object obj : results) {
+            Map<String, Object> pairs = (Map<String, Object>) obj;
+            Coupon coupon = ConvertUtils.couponFromPairs(pairs);
+            coupons.add(coupon);
+        }
+        return coupons;
     }
 
 
