@@ -356,7 +356,7 @@ public class DatabaseManager {
                 .description("Upgrade your running game with our latest collection of running shoes")
                 .startDate(Date.valueOf(LocalDate.now()))
                 .endDate(Date.valueOf(LocalDate.now().plusWeeks(2)))
-                .amount(200)
+                .amount(100)
                 .price(80.0)
                 .image("https://media.giphy.com/media/fPeqMskwclbZj2TWg6/giphy.gif")
                 .build();

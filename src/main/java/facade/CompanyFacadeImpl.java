@@ -95,17 +95,7 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
                 .filter(coupon -> coupon.getCategory() == category)
                 .collect(Collectors.toList());
     }
-//        List<Coupon> coupons = new ArrayList<>();
-//        List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
-//        for (Coupon coupon : couponFromDB ) {
-//            if(coupon.getCategory() == category){
-//                coupons.add(coupon);
-//            }
-//        }
-//        return coupons;
-//    }
 
-//        List<Coupon> coupons1 = couponFromDB.stream().filter(c->c.getCategory() == category);
 
     @Override
     public List<Coupon> getCompanyCoupons(double MaxPrice) {
@@ -115,15 +105,6 @@ public class CompanyFacadeImpl extends ClientFacade implements CompanyFacade {
                 .filter(coupon -> coupon.getPrice() <MaxPrice)
                 .collect(Collectors.toList());
     }
-//        List<Coupon> coupons = new ArrayList<>();
-//        List<Coupon> couponFromDB =  couponDAO.getCouponsByCompanyId(companyId);
-//        for (Coupon coupon : couponFromDB ) {
-//            if(coupon.getPrice() < MaxPrice){
-//                coupons.add(coupon);
-//            }
-//        }
-//        return coupons;
-//    }
 
 
     @Override

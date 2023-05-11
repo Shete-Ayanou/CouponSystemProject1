@@ -26,11 +26,11 @@ public class App {
 
 ////        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
 ////        adminFacadeTest.testAsAdmin();
-        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
-        companyFacadeTest.testAsCompany();
+//        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
+//        companyFacadeTest.testAsCompany();
 
-//        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
-//        customerFacadeTest.testCustomer();
+        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
+        customerFacadeTest.testCustomer();
 
 
 

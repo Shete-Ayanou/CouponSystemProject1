@@ -24,6 +24,7 @@ public class CouponDAOImpl implements CouponDAO {
     private static final String GET_COUPONS_BY_COMPANY_ID = "SELECT * FROM `coupon-system 159`.coupons where company_id = ?";
     private final String DELETE_COUPONS_BY_COUPONS_ID = "DELETE FROM `coupon-system`.`customer_vs_coupon` WHERE (`coupon_id` = ?)";
     private final String GET_COUPONS_BY_TITLE = "SELECT * FROM `coupon-system 159`.coupons where title = ?";
+    private final String DECREASED_AMOUNT_OF_COUPON= "UPDATE `coupon-system 159`.coupons SET amount = amount - 1 WHERE id = ?";
     @Override
     public void add(Coupon coupon) {
         Map<Integer, Object> params = new HashMap<>();
@@ -170,6 +171,14 @@ public class CouponDAOImpl implements CouponDAO {
             coupons.add(coupon);
         }
         return coupons;
+    }
+
+    @Override
+    public void decreasedAmount(int couponId) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, couponId);
+        DBUtils.runQuery(DECREASED_AMOUNT_OF_COUPON,params);
+
     }
 
 

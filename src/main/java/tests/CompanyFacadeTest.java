@@ -25,7 +25,7 @@ public class CompanyFacadeTest {
 //      Test.test("Company Facade - bad login - wrong password");
 //      System.out.println((((ClientFacade) companyFacade).login("info@Ista.com", "3254")));
 
-      System.out.println("---------------------------------------------------------------------------------");
+//      System.out.println("---------------------------------------------------------------------------------");
 
 //      Test.test("Company Facade - bad add - wrong title");
 //
@@ -86,7 +86,7 @@ public class CompanyFacadeTest {
 //      }
 //      companyFacade.getCompanyCoupons().forEach(System.out::println);
 
-      System.out.println("---------------------------------------------------------------------------------");
+//      System.out.println("---------------------------------------------------------------------------------");
 //
 //            Coupon coupon32 = Coupon.builder()
 //              .title("update")
@@ -127,19 +127,19 @@ public class CompanyFacadeTest {
 //
 //            companyFacade.deleteCoupon(4);
 
-      companyFacade.getCompanyCoupons().forEach(System.out::println);
-
-      System.out.println("category--------------");
-      companyFacade.getCompanyCoupons(Category.HEALTH).forEach(System.out::println);
-
-      System.out.println("maxPrice------------");
-
-      companyFacade.getCompanyCoupons(50).forEach(System.out::println);
-
-      System.out.println("details------------------");
-
-      System.out.println(companyFacade.getCompanyDetails());
-
+//      companyFacade.getCompanyCoupons().forEach(System.out::println);
+//
+//      System.out.println("category--------------");
+//      companyFacade.getCompanyCoupons(Category.HEALTH).forEach(System.out::println);
+//
+//      System.out.println("maxPrice------------");
+//
+//      companyFacade.getCompanyCoupons(50).forEach(System.out::println);
+//
+//      System.out.println("details------------------");
+//
+//      System.out.println(companyFacade.getCompanyDetails());
+//
 
   }
 }

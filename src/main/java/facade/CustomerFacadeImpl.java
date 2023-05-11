@@ -38,14 +38,14 @@ public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
         if (this.customerDAO.isCustomerAlreadyHaveCoupon(customerId, coupon.getId())) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_ALREADY_HAVE_COUPON);
         }
-        if (!this.couponDAO.isExist(coupon.getId())) {
-            throw new CouponSystemException(ErrMsg.PURCHASE_COUPON_NOT_EXIST);
+        if(coupon.getAmount() == 0){
+            throw new CouponSystemException(ErrMsg.COUPON_OUT_OF_STOCK);
         }
-        if (coupon.getEndDate().after(new Date())) {
+        if (coupon.getEndDate().before(new Date())) {
             throw new CouponSystemException(ErrMsg.COUPON_EXPIRED);
         }
         couponDAO.addCouponPurchase(customerId, coupon.getId());
-        couponDAO.delete(coupon.getId());
+        couponDAO.decreasedAmount(coupon.getId());
 
     }
 
