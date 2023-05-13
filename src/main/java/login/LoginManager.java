@@ -9,12 +9,15 @@ import facade.CustomerFacadeImpl;
 
 public class LoginManager {
 
-    private LoginManager instance;
+    private static LoginManager instance;
 
     private LoginManager() {
     }
 
-    public LoginManager getInstance() {
+    public static LoginManager getInstance() {
+        if(instance == null){
+            return new LoginManager();
+        }
         return instance;
     }
 

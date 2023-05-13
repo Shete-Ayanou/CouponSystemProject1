@@ -177,6 +177,9 @@ public class AdminFacadeTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        Test.test("Admin Facade - get all companies - ");
+
         adminFacade.getAllCompanies().forEach(System.out::println);
 
 

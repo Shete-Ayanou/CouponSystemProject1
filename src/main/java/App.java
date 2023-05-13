@@ -15,28 +15,41 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-//        CouponExpirationDailyJob couponExpirationDailyJob = new CouponExpirationDailyJob();
+        CouponExpirationDailyJob couponExpirationDailyJob = new CouponExpirationDailyJob();
 
 
         System.out.println("Coupon System 159 started");
         DatabaseManager.startDatabase();
-//        Thread couponCleaner = new Thread(couponExpirationDailyJob);
-//        couponCleaner.setDaemon(true);
-//        couponCleaner.start();
+        Thread couponCleaner = new Thread(couponExpirationDailyJob);
+        couponCleaner.setDaemon(true);
+        couponCleaner.start();
 
 ////        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
 ////        adminFacadeTest.testAsAdmin();
 //        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
 //        companyFacadeTest.testAsCompany();
 
-        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
-        customerFacadeTest.testCustomer();
+//        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
+//        customerFacadeTest.testCustomer();
+//
+
+        couponExpirationDailyJob.stop();
+//
+//        DatabaseManager.endDatabase();
+//        System.out.println("Coupon System 159 ended");
 
 
 
-        DatabaseManager.endDatabase();
-        System.out.println("Coupon System 159 ended");
+//
 
 
     }
 }
+
+
+
+//
+//        while (true){
+//                Thread.sleep(1000*30);
+//
+//                }

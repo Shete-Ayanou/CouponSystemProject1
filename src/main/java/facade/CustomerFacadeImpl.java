@@ -73,15 +73,7 @@ public class CustomerFacadeImpl extends ClientFacade implements CustomerFacade {
         return coupons;
     }
 
-    //     List<Coupon> coupons = new ArrayList<>();
-//        List<Coupon> couponFromDB =  customerDAO.getCouponBycustomeriD(customerId);
-//        for (Coupon coupon : couponFromDB ) {
-//            if(coupon.getPrice() < MaxPrice){
-//                coupons.add(coupon);
-//            }
-//        }
-//        return coupons;
-//    }
+
     @Override
     public Customer getCustomerDetails() {
         return customerDAO.getSingle(customerId);
