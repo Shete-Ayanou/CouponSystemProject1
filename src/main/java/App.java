@@ -20,23 +20,26 @@ public class App {
 
         System.out.println("Coupon System 159 started");
         DatabaseManager.startDatabase();
+
+
+
+        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
+        adminFacadeTest.testAsAdmin();
+
+        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
+        companyFacadeTest.testAsCompany();
+
+        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
+        customerFacadeTest.testCustomer();
+
         Thread couponCleaner = new Thread(couponExpirationDailyJob);
         couponCleaner.setDaemon(true);
         couponCleaner.start();
 
-////        AdminFacadeTest adminFacadeTest = new AdminFacadeTest();
-////        adminFacadeTest.testAsAdmin();
-//        CompanyFacadeTest companyFacadeTest = new CompanyFacadeTest();
-//        companyFacadeTest.testAsCompany();
-
-//        CustomerFacadeTest customerFacadeTest = new CustomerFacadeTest();
-//        customerFacadeTest.testCustomer();
-//
-
         couponExpirationDailyJob.stop();
-//
-//        DatabaseManager.endDatabase();
-//        System.out.println("Coupon System 159 ended");
+
+        DatabaseManager.endDatabase();
+        System.out.println("Coupon System 159 ended");
 
 
 

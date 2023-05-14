@@ -50,12 +50,5 @@ public class CouponExpirationDailyJob implements Runnable {
     }
 
 
-//    private Date getDate() {
-//        LocalDateTime currentDate = LocalDateTime.now();
-//        return new Date(currentDate.getYear()
-//                , currentDate.getMonthValue(), currentDate.getDayOfMonth()
-//                , currentDate.getHour(), currentDate.getMinute(), currentDate.getSecond());
-//    }
-
 
 }

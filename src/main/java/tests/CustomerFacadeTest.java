@@ -17,17 +17,17 @@ public class CustomerFacadeTest {
     private CustomerFacade customerFacade = new CustomerFacadeImpl(2);
 
     public void testCustomer() throws CouponSystemException {
-//
-//        Test.test("Customer Facade - bad login - wrong email");
-//      System.out.println((((ClientFacade) customerFacade).login("bob@gmail.com", "1234")));
-//      Test.test("Customer Facade - bad login - wrong password");
-//      System.out.println((((ClientFacade) customerFacade).login("info@Ista.com", "3254")));
-//
-//      System.out.println("---------------------------------------------------------------------------------");
+
+        Test.test("Customer Facade - bad login - wrong email");
+        System.out.println((((ClientFacade) customerFacade).login("bob@gmail.com", "1234")));
+        Test.test("Customer Facade - bad login - wrong password");
+        System.out.println((((ClientFacade) customerFacade).login("info@Ista.com", "3254")));
+
+        System.out.println("---------------------------------------------------------------------------------");
 
         Test.test("Customer Facade - purchase Coupon - Succeeded");
-         Coupon coupon5 = Coupon.builder()
-                 .id(1)
+        Coupon coupon5 = Coupon.builder()
+                .id(1)
                 .companyId(5)
                 .category(Category.HEALTH)
                 .title("Get 3 for the price of 2 on all vitamins")
@@ -40,10 +40,10 @@ public class CustomerFacadeTest {
                 .build();
 
         try {
-         customerFacade.purchaseCoupon(coupon5);
-      }catch (CouponSystemException e){
-          System.out.println(e.getMessage());
-      }
+            customerFacade.purchaseCoupon(coupon5);
+        } catch (CouponSystemException e) {
+            System.out.println(e.getMessage());
+        }
         Test.test("Customer Facade - purchase Coupon - already exits");
         Coupon coupon2 = Coupon.builder()
                 .id(1)
@@ -60,7 +60,7 @@ public class CustomerFacadeTest {
 
         try {
             customerFacade.purchaseCoupon(coupon2);
-        }catch (CouponSystemException e){
+        } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
@@ -81,23 +81,25 @@ public class CustomerFacadeTest {
 
         try {
             customerFacade.purchaseCoupon(coupon3);
-        }catch (CouponSystemException e){
+        } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
-        customerFacade.getCustomerCoupons().forEach(System.out::println);
-        System.out.println("---------------------------customer coupon-----------------------------------");
 
-        customerFacade.getCustomerCoupons().forEach(System.out::println);
-        System.out.println("---------------------------customer coupon by Category-----------------------------------");
 
+        Test.test("Costumer Facade - get Costumer coupon");
+        customerFacade.getCustomerCoupons().forEach(System.out::println);
+
+
+        Test.test("Costumer Facade - get coupon by Category  coupon ");
         customerFacade.getCustomerCoupons(Category.FOOD).forEach(System.out::println);
-        System.out.println("---------------------------customer coupon by Max price-----------------------------------");
 
-        customerFacade.getCustomerCoupons(50).forEach(System.out::println);
 
+        Test.test("Costumer Facade - get coupon by Max-price  coupon ");
+        customerFacade.getCustomerCoupons(300).forEach(System.out::println);
+
+
+        Test.test("Costumer Facade - get company details ");
         System.out.println(customerFacade.getCustomerDetails());
-
-
 
 
     }

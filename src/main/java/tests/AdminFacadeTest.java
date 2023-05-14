@@ -13,18 +13,18 @@ public class AdminFacadeTest {
     private AdminFacade adminFacade = new AdminFacadeImpl();
 
     public void testAsAdmin() throws Exception {
-//        Test.test("Admin Facade - bad login - wrong email");
-//        System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "admin"));
-//        Test.test("Admin Facade - bad login - wrong password");
-//        System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "stam"));
-//        Test.test("Admin Facade - bad login - wrong email and password");
-//        System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "stam"));
-//        Test.test("Admin Facade - good login -");
-//        System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "admin"));
-//
-//
-//        System.out.println("---------------------------------------------------------------------------------");
-//
+        Test.test("Admin Facade - bad login - wrong email");
+        System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "admin"));
+        Test.test("Admin Facade - bad login - wrong password");
+        System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "stam"));
+        Test.test("Admin Facade - bad login - wrong email and password");
+        System.out.println(((ClientFacade) adminFacade).login("stam@gmail.com", "stam"));
+        Test.test("Admin Facade - good login -");
+        System.out.println(((ClientFacade) adminFacade).login("admin@admin.com", "admin"));
+
+
+        System.out.println("---------------------------------------------------------------------------------");
+
         Company companyToAdd = null;
         Test.test("Admin Facade - add company - id already exist");
         companyToAdd = adminFacade.getSingleCompany(1).orElseThrow(() -> new Exception("company not exist"));
